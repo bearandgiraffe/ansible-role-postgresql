@@ -1,12 +1,14 @@
 ---
 - name: Create PostgreSQL users
   postgresql_user:
-    name:         "{{item.username}}"
-    password:     "{{ item.password | default(omit) }}"
-    encrypted:    "{{ item.encrypted | default(omit) }}"
-    port:         "{{postgresql_port}}"
-    state:        present
-    login_user:   "{{postgresql_admin_user}}"
+    name:             "{{item.username}}"
+    password:         "{{ item.password | default(omit) }}"
+    encrypted:        "{{ item.encrypted | default(omit) }}"
+    priv:             'ALL'
+    role_attr_flags:  'SUPERUSER,CREATEROLE,CREATEUSER,CREATEDB'
+    port:             "{{postgresql_port}}"
+    state:            present
+    login_user:       "{{postgresql_admin_user}}"
   become:       yes
   become_user:  "{{postgresql_admin_user}}"
   with_items:   "{{postgresql_users}}"
