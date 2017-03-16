@@ -16,7 +16,6 @@
     - 'postgresql-contrib-{{postgresql_version}}'
     - python-pip
     - python-dev
-    - postgis
 
 - name: Configure PostgreSQL - postgresql.conf
   template: src=postgresql.conf.j2 dest='/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf'
